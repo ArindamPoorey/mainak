@@ -1,26 +1,69 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --navy: #0B1F3A;
+  --orange: #F97316;
+  --white: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-dim: #F5F5F5;
+  --text-dark: #111111;
+  --text-mid: #4B5563;
+  --text-faint: #9CA3AF;
+  --border: #E5E7EB;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --radius-card: 10px;
+  --radius-btn: 8px;
+  --shadow-hover: 0 10px 30px rgba(0,0,0,0.06);
+  --transition: 0.2s ease;
+  --container-max: 1280px;
+
+  /* Dot grid pattern for navy sections */
+  --navy-dot-pattern: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  color: var(--text-mid);
+  background: var(--surface);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-dark);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: var(--font-body); }
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* Navy sections get the dot grid automatically */
+.navy-bg {
+  background-color: var(--navy);
+  background-image: var(--navy-dot-pattern);
+  background-size: 28px 28px;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
 }

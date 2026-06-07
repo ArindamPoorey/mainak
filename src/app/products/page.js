@@ -37,45 +37,75 @@ function PageBanner({ title, subtitle }) {
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const products = [
   {
-    name: 'Bearing Cages & Press Tools',
-    desc: 'High-tolerance cages and press tooling for automotive and defense bearing applications.',
-    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&fit=crop',
+    name: 'Grinding and Cutting Wheels',
+    desc: 'High-performance abrasive wheels designed for fast, clean cutting and grinding of metal and masonry.',
+    img: 'https://www.renwa-abrasive.com/uploads/21858/info/p202408261522436ab4e.jpg', // Angle grinder sparks
   },
   {
-    name: 'Testing & Coating Fixtures',
-    desc: 'Precision fixtures engineered for PVD/CVD coating and dimensional testing processes.',
-    img: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&q=80&fit=crop',
+    name: 'Flap Discs and Flap Wheels',
+    desc: 'Versatile abrasive discs engineered for aggressive material removal, blending, and smooth surface finishing.',
+    img: 'https://www.3mindia.in/wps/wcm/connect/922152fe-d55a-4ce3-95cf-da9988027aeb/3M_CubitronTM_II_Faecherschleifscheibe_967a-410x205px.jpg?MOD=AJPERES&CACHEID=ROOTWORKSPACE-922152fe-d55a-4ce3-95cf-da9988027aeb-nZ363JB', // Metalwork finishing
   },
   {
-    name: 'Special Fasteners',
-    desc: 'Non-standard fasteners manufactured from specialty alloys for extreme load environments.',
-    img: 'https://images.unsplash.com/photo-1609010697446-11f2155278f0?w=600&q=80&fit=crop',
+    name: 'Abrasive Belts & Packing Belts',
+    desc: 'Durable sanding belts for continuous material prep and high-tensile packing belts for heavy-duty industrial strapping.',
+    img: 'https://www.combatabrasives.com/cdn/shop/files/Surface-Conditioning-Belts-3.jpg?v=1745968442&width=2048', // Industrial manufacturing
   },
   {
-    name: 'Machined Shafts & Gear Blanks',
-    desc: 'CNC-turned shafts and gear blanks held to tight tolerances for transmission applications.',
-    img: 'https://images.unsplash.com/photo-1565043666747-69f6646db940?w=600&q=80&fit=crop',
+    name: 'Perforated Grills and Filter Assembly',
+    desc: 'Precision-engineered perforated metal grills and assemblies designed for optimal air filtration and fluid separation.',
+    img: 'https://rectorseal.com/media/catalog/product/cache/1fcb13513d89f044c960feca818b0090/1/2/1280_MtT4sEsx7cG342zA.jpg-1646784881', // Perforated metal mesh
   },
   {
-    name: 'Automotive Components',
-    desc: 'Critical machined parts for 2-wheeler and 4-wheeler OEM supply chains across India.',
-    img: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80&fit=crop',
+    name: 'Industrial Wipes',
+    desc: 'Heavy-duty, highly absorbent cleaning wipes formulated to quickly remove tough grease, oil, and workshop grime.',
+    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzLKl2G-DijSliEbLoxwizX2Dk0SnuFL3NWQ&s', // Workshop cleanup/supplies
   },
   {
-    name: 'Special Tools & Dies',
-    desc: 'Custom tooling and dies designed in-house — from concept to finished tool under one roof.',
-    img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80&fit=crop',
+    name: 'Industrial Toolings',
+    desc: 'Custom precision dies, fixtures, and cutting tools manufactured for consistent mass-production machining.',
+    img: 'https://inchtools.com/wp-content/uploads/2023/04/industrial-tools.webp', // CNC drill bits/machining
   },
   {
-    name: 'Fabricated Assemblies',
-    desc: 'Welded and assembled fabrications including I-beams, frames, and structural safety parts.',
-    img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80&fit=crop',
+    name: 'Safety Equipment',
+    desc: 'Comprehensive personal protective equipment (PPE) to ensure worker safety in hazardous industrial environments.',
+    img: 'https://cpimg.tistatic.com/02479521/b/4/Industrial-Safety-Equipement.jpg', // Hard hats and safety gear
   },
   {
-    name: 'Precision Pins & Rollers',
-    desc: 'Ground and lapped pins and rollers used in bearing and transmission assemblies.',
-    img: 'https://images.unsplash.com/photo-1567789884554-0b844b597180?w=600&q=80&fit=crop',
+    name: 'Material Handling Equipment',
+    desc: 'Robust equipment including pallet jacks, hoists, and trolleys designed to safely maneuver heavy industrial loads.',
+    img: 'https://5.imimg.com/data5/SELLER/Default/2020/11/NJ/VV/QV/21609698/material-handling-equipment-500x500-1.jpg', // Warehouse and pallets
   },
+  {
+    name: 'Castor Wheels',
+    desc: 'Heavy-duty swivel and rigid caster wheels engineered for smooth workplace mobility and high load-bearing capacity.',
+    img: 'https://m.media-amazon.com/images/I/61Jb-ZoO-RL.jpg', // Industrial trolley
+  },
+  {
+    name: 'Hydraulic Hoses and Fittings',
+    desc: 'High-pressure hydraulic hoses and leak-proof steel fittings built for reliable, heavy-duty fluid power transmission.',
+    img: 'https://5.imimg.com/data5/GI/YC/MY-32061269/hydraulic-hoses-and-fittings.jpg', // Industrial piping and hoses
+  },
+  {
+    name: 'SS Fittings, Flanges and Fasteners',
+    desc: 'Corrosion-resistant stainless steel fasteners, flanges, and piping connectors for harsh industrial and chemical environments.',
+    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbTQL07mI8B88T5bIj-hC4N57Jte18k0-4QQ&s', // Nuts, bolts, and fasteners
+  },
+  {
+    name: 'Modular Assemblies and Conveyor Systems',
+    desc: 'Scalable conveyor belts and modular assembly lines to streamline automated manufacturing and logistics operations.',
+    img: 'https://www.designedconveyor.com/wp-content/uploads/2019/11/factory-1137993_640.jpg', // Automated production line
+  },
+  {
+    name: 'Stationary Consumables',
+    desc: 'Essential industrial office supplies, inventory tags, and documentation materials required for everyday plant operations.',
+    img: 'https://5.imimg.com/data5/SL/MY/JO/SELLER-19492446/office-stationery-office-consumable-and-office-supply-500x500.jpg', // Stationery and clips
+  },
+  {
+    name: 'Power Press Parts',
+    desc: 'Durable replacement components, clutches, and die cushions specifically manufactured for heavy mechanical power presses.',
+    img: 'https://3.imimg.com/data3/VJ/YB/MY-3404179/power-press-components-500x500.jpg', // Heavy metal machinery
+  }
   /* ── ADD NEW PRODUCTS BELOW THIS LINE ──
   {
     name: 'Your Product Name',

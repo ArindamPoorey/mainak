@@ -35,6 +35,35 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* NEW DOWNLOADS COLUMN */}
+          <div className="footer-download-col">
+            <p className="footer-col-label">Downloads</p>
+            <ul className="footer-contact-list">
+              <li>
+                {/* Ensure 'company-brochure.pdf' is in your public folder */}
+                <a href="/A K ENTERPRISES Profile.pdf" download className="footer-contact-link">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  Company Brochure
+                </a>
+              </li>
+              <li>
+                {/* Ensure 'product-catalog.pdf' is in your public folder */}
+                <a href="/Ak Products.pdf" download className="footer-contact-link">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  Product Catalog
+                </a>
+              </li>
+            </ul>
+          </div>
+
           <div className="footer-contact-col">
             <p className="footer-col-label">Get In Touch</p>
             <ul className="footer-contact-list">
@@ -68,11 +97,12 @@ export default function Footer() {
       </div>
 
       <style>{`
-        .footer { background-color: var(--navy); background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 28px 28px; background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 28px 28px; }
+        .footer { background-color: var(--navy); background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 28px 28px; }
         .footer-inner { padding-top: 64px; padding-bottom: 64px; }
         .footer-top {
           display: grid;
-          grid-template-columns: 1.4fr 1fr 1.4fr;
+          /* Adjusted grid to accommodate 4 columns */
+          grid-template-columns: 1.4fr 1fr 1fr 1.4fr;
           gap: 48px;
           padding-bottom: 40px;
           border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -108,6 +138,7 @@ export default function Footer() {
           font-size: 14px;
           color: #D1D5DB;
           transition: color var(--transition);
+          text-decoration: none;
         }
         .footer-contact-link svg { flex-shrink: 0; margin-top: 2px; }
         a.footer-contact-link:hover { color: var(--orange); }
@@ -120,6 +151,8 @@ export default function Footer() {
           font-size: 13px;
           color: #6B7280;
         }
+        
+        /* Responsive adjustments */
         @media (max-width: 1024px) {
           .footer-top { grid-template-columns: 1fr 1fr; }
           .footer-brand { grid-column: 1 / -1; }

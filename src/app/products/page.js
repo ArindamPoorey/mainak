@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function Products() {
   return (
@@ -32,11 +32,6 @@ function PageBanner({ title, subtitle }) {
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    MANUFACTURED PRODUCTS LIST
-   To add a new product:
-   1. Add a new object to the `products` array below
-   2. Set `name` to the product name
-   3. Set `desc` to a one-line description
-   4. Set `img` to an Unsplash URL or your own image path
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const products = [
   {
@@ -109,13 +104,6 @@ const products = [
     desc: 'Durable replacement components, clutches, and die cushions specifically manufactured for heavy mechanical power presses.',
     img: 'https://3.imimg.com/data3/VJ/YB/MY-3404179/power-press-components-500x500.jpg',
   },
-  /* ── ADD NEW PRODUCTS BELOW THIS LINE ──
-  {
-    name: 'Your Product Name',
-    desc: 'One-line description of the product.',
-    img: 'https://your-image-url.com/image.jpg',
-  },
-  */
 ];
 
 function ProductGrid() {
@@ -147,50 +135,24 @@ function ProductGrid() {
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    AUTHORIZED STOCKIST BRANDS + PRODUCTS + BROCHURES
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-   HOW TO ADD A NEW BRAND:
-   Copy this template and add it to the `brands` array:
-   {
-     name: 'Brand Name',
-     img: './brandlogos/brandname.png',   ← drop logo in public/brandlogos/
-     products: [
-       {
-         name: 'Product Name',
-         brochure: '/brochures/brandname-product.pdf', ← drop PDF in public/brochures/
-       },
-     ],
-   },
-
-   HOW TO ADD A PRODUCT TO AN EXISTING BRAND:
-   Find the brand in the array below, then add to its `products` array:
-   { name: 'Product Name', brochure: '/brochures/filename.pdf' },
-
-   HOW TO ADD A BROCHURE PDF:
-   1. Drop the PDF file into the `public/brochures/` folder
-   2. Set the `brochure` field to '/brochures/your-filename.pdf'
-   3. If no brochure yet, set brochure to null — shows "Coming Soon"
-
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const brands = [
   {
     name: 'Palymak',
     img: './brandlogos/Palymak.png',
     products: [
-      { name: 'Abrasive Flap Disc',     brochure: null }, // → '/brochures/palymak-flap-disc.pdf'
-      { name: 'Abrasive Rolls',          brochure: null },
-      { name: 'Abrasive Sheets',         brochure: null },
-      /* ── ADD MORE PALYMAK PRODUCTS HERE ── */
+      { name: 'Abrasive Flap Disc',     brochure: null },
+      { name: 'Abrasive Rolls',         brochure: null },
+      { name: 'Abrasive Sheets',        brochure: null },
     ],
   },
   {
     name: 'Cumi',
     img: './brandlogos/Cumi.png',
     products: [
-      { name: 'Grinding Wheels',         brochure: null },
-      { name: 'Cutting Wheels',          brochure: null },
-      { name: 'Coated Abrasives',        brochure: null },
-      /* ── ADD MORE CUMI PRODUCTS HERE ── */
+      { name: 'Grinding Wheels',        brochure: null },
+      { name: 'Cutting Wheels',         brochure: null },
+      { name: 'Coated Abrasives',       brochure: null },
     ],
   },
   {
@@ -213,7 +175,6 @@ const brands = [
       { name: 'General Safety',            brochure: '/brochures/assets_catalogues_3m_safety_general-safety.pdf' },
       { name: 'Hearing Protection',            brochure: '/brochures/assets_catalogues_3m_safety_hearing-protection.pdf' },
       { name: 'Respiratory Protection',            brochure: '/brochures/assets_catalogues_3m_safety_respiratory-protection.pdf' },
-      /* ── ADD MORE 3M PRODUCTS HERE ── */
     ],
   },
   {
@@ -223,7 +184,6 @@ const brands = [
       { name: 'Angle Grinder Discs',     brochure: null },
       { name: 'Cutting Discs',           brochure: null },
       { name: 'Diamond Blades',          brochure: null },
-      /* ── ADD MORE BOSCH PRODUCTS HERE ── */
     ],
   },
   {
@@ -232,7 +192,6 @@ const brands = [
     products: [
       { name: 'Abrasive Belts',          brochure: null },
       { name: 'Abrasive Sheets',         brochure: null },
-      /* ── ADD MORE STARCKE PRODUCTS HERE ── */
     ],
   },
   {
@@ -241,7 +200,6 @@ const brands = [
     products: [
       { name: 'Industrial Lubricants',   brochure: null },
       { name: 'Surface Cleaners',        brochure: null },
-      /* ── ADD MORE DUPONT PRODUCTS HERE ── */
     ],
   },
   {
@@ -251,7 +209,6 @@ const brands = [
       { name: 'HSS Drill Bits',          brochure: null },
       { name: 'Carbide Inserts',         brochure: null },
       { name: 'End Mills',               brochure: null },
-      /* ── ADD MORE NACHI PRODUCTS HERE ── */
     ],
   },
   {
@@ -261,7 +218,6 @@ const brands = [
       { name: 'Grinding Wheels',         brochure: null },
       { name: 'Flap Discs',              brochure: null },
       { name: 'Bend Saw Blades',         brochure: null },
-      /* ── ADD MORE NORTON PRODUCTS HERE ── */
     ],
   },
   {
@@ -270,7 +226,6 @@ const brands = [
     products: [
       { name: 'Cutting Wheels',          brochure: null },
       { name: 'Grinding Discs',          brochure: null },
-      /* ── ADD MORE ABRACUT PRODUCTS HERE ── */
     ],
   },
   {
@@ -279,7 +234,6 @@ const brands = [
     products: [
       { name: 'Diamond Grinding Wheels', brochure: null },
       { name: 'CBN Wheels',              brochure: null },
-      /* ── ADD MORE WENDT PRODUCTS HERE ── */
     ],
   },
   {
@@ -289,7 +243,6 @@ const brands = [
       { name: 'Safety Helmets',          brochure: null },
       { name: 'Safety Gloves',           brochure: null },
       { name: 'Safety Shoes',            brochure: null },
-      /* ── ADD MORE UDYOGI PRODUCTS HERE ── */
     ],
   },
   {
@@ -299,7 +252,6 @@ const brands = [
       { name: 'Fall Arrest Systems',     brochure: null },
       { name: 'Safety Harness',          brochure: null },
       { name: 'Hard Hats',               brochure: null },
-      /* ── ADD MORE KARAM PRODUCTS HERE ── */
     ],
   },
   {
@@ -308,7 +260,6 @@ const brands = [
     products: [
       { name: 'Safety Shoes',            brochure: null },
       { name: 'PPE Kits',                brochure: null },
-      /* ── ADD MORE VENUS PRODUCTS HERE ── */
     ],
   },
   {
@@ -317,7 +268,6 @@ const brands = [
     products: [
       { name: 'PU Caster Wheels',        brochure: null },
       { name: 'Nylon Caster Wheels',     brochure: null },
-      /* ── ADD MORE SUPO PRODUCTS HERE ── */
     ],
   },
   {
@@ -326,7 +276,6 @@ const brands = [
     products: [
       { name: 'Industrial Castors',      brochure: null },
       { name: 'Trolley Wheels',          brochure: null },
-      /* ── ADD MORE SUMATIC PRODUCTS HERE ── */
     ],
   },
   {
@@ -335,7 +284,6 @@ const brands = [
     products: [
       { name: 'HSS Drill Bits',          brochure: null },
       { name: 'Taps & Dies',             brochure: null },
-      /* ── ADD MORE ADDISON PRODUCTS HERE ── */
     ],
   },
   {
@@ -344,7 +292,6 @@ const brands = [
     products: [
       { name: 'Carbide Drill Bits',      brochure: null },
       { name: 'End Mills',               brochure: null },
-      /* ── ADD MORE TOTEM PRODUCTS HERE ── */
     ],
   },
   {
@@ -353,7 +300,6 @@ const brands = [
     products: [
       { name: 'Carbide Inserts',         brochure: null },
       { name: 'Milling Cutters',         brochure: null },
-      /* ── ADD MORE TG PRODUCTS HERE ── */
     ],
   },
   {
@@ -363,7 +309,6 @@ const brands = [
       { name: 'Turning Inserts',         brochure: null },
       { name: 'Milling Inserts',         brochure: null },
       { name: 'Boring Tools',            brochure: null },
-      /* ── ADD MORE TAEGUTEC PRODUCTS HERE ── */
     ],
   },
   {
@@ -373,7 +318,6 @@ const brands = [
       { name: 'Pneumatic Cylinders',     brochure: null },
       { name: 'Solenoid Valves',         brochure: null },
       { name: 'FRL Units',               brochure: null },
-      /* ── ADD MORE JANATICS PRODUCTS HERE ── */
     ],
   },
   {
@@ -383,7 +327,6 @@ const brands = [
       { name: 'Pneumatic Fittings',      brochure: null },
       { name: 'Pneumatic Pipes',         brochure: null },
       { name: 'Pneumatic Valves',        brochure: null },
-      /* ── ADD MORE SMC PRODUCTS HERE ── */
     ],
   },
   {
@@ -393,7 +336,6 @@ const brands = [
       { name: 'Pneumatic Actuators',     brochure: null },
       { name: 'Electric Drives',         brochure: null },
       { name: 'Process Valves',          brochure: null },
-      /* ── ADD MORE FESTO PRODUCTS HERE ── */
     ],
   },
   {
@@ -403,26 +345,35 @@ const brands = [
       { name: 'Hydraulic Valves',        brochure: null },
       { name: 'Hydraulic Pumps',         brochure: null },
       { name: 'Hydraulic Cylinders',     brochure: null },
-      /* ── ADD MORE YUKEN PRODUCTS HERE ── */
     ],
   },
-
-  /* ── ADD NEW BRANDS BELOW THIS LINE ───────────────────────────────
-  {
-    name: 'Brand Name',
-    img: './brandlogos/brandname.png',
-    products: [
-      { name: 'Product Name', brochure: '/brochures/brandname-product.pdf' },
-    ],
-  },
-  ─────────────────────────────────────────────────────────────────── */
 ];
 
 function BrandStockist() {
   const [activeBrand, setActiveBrand] = useState(null);
+  
+  // Create refs for scrolling behavior
+  const gridRef = useRef(null);
+  const dropdownRef = useRef(null);
+
+  function closeDropdown() {
+    setActiveBrand(null);
+    // Scroll back to the brand grid slightly after closing
+    setTimeout(() => {
+      gridRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 50);
+  }
 
   function handleBrandClick(brandName) {
-    setActiveBrand(activeBrand === brandName ? null : brandName);
+    if (activeBrand === brandName) {
+      closeDropdown();
+    } else {
+      setActiveBrand(brandName);
+      // Wait a moment for the dropdown element to mount in the DOM
+      setTimeout(() => {
+        dropdownRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
   }
 
   function openBrochure(brochure) {
@@ -445,8 +396,8 @@ function BrandStockist() {
           Click any brand to explore its product range. Click a product to view its brochure.
         </p>
 
-        {/* Brand logo grid */}
-        <div className="brand-grid">
+        {/* Brand logo grid with ref attached */}
+        <div className="brand-grid" ref={gridRef}>
           {brands.map((b) => (
             <button
               key={b.name}
@@ -469,7 +420,7 @@ function BrandStockist() {
 
         {/* Dropdown panel — shown below grid when a brand is active */}
         {activeBrandData && (
-          <div className="brand-dropdown">
+          <div className="brand-dropdown" ref={dropdownRef}>
             <div className="brand-dropdown-header">
               <img
                 src={activeBrandData.img}
@@ -484,7 +435,7 @@ function BrandStockist() {
               </div>
               <button
                 className="dropdown-close"
-                onClick={() => setActiveBrand(null)}
+                onClick={closeDropdown}
                 aria-label="Close"
               >
                 ✕
@@ -587,7 +538,7 @@ const styles = `
   .product-desc { font-size: 13px; line-height: 1.6; color: var(--text-mid); }
 
   /* Brand grid */
-  .brand-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .brand-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; scroll-margin-top: 100px; }
 
   .brand-slot {
     background: var(--surface);
@@ -644,6 +595,7 @@ const styles = `
     border-radius: var(--radius-card);
     overflow: hidden;
     animation: dropIn 0.25s ease;
+    scroll-margin-top: 100px; /* Offset to prevent header overlap */
   }
   @keyframes dropIn {
     from { opacity: 0; transform: translateY(-10px); }

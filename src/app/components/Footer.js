@@ -82,7 +82,9 @@ export default function Footer() {
               <li>
                 <span className="footer-contact-link">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
-                  <span>J-316, Near Quality Circle,<br />MIDC Bhosari, Pune-411026</span>
+                  <span>A-5,Ruston Colony, Bijlinagar Road, 
+                        Chinchwad Pune-411033 MH India PUNE, Maharashtra – 
+                        411033</span>
                 </span>
               </li>
             </ul>
@@ -91,7 +93,8 @@ export default function Footer() {
 
         <div className="footer-bottom">
           <p>&copy; {new Date().getFullYear()} A K Enterprises. All rights reserved.</p>
-          <p>J-316, MIDC Bhosari, Pune-411026, Maharashtra, India</p>
+          <p>Factory Address:-Sr No-24 Samrajya Industrial Estate, S 
+               lock ,MIDC Bhosari Pune-411026 MH India. </p>
         </div>
 
       </div>

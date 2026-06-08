@@ -97,9 +97,9 @@ export default function Contact() {
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 </div>
                 <p className="info-address">
-                  J-316, Near Quality Circle<br />
-                  MIDC Bhosari, Pune-411026<br />
-                  Maharashtra, India
+                  Office Address-:A-5,Ruston Colony, Bijlinagar Road, 
+                  Chinchwad Pune-411033 MH India PUNE, Maharashtra – 
+                  411033  
                 </p>
               </div>
               <div className="info-row">
@@ -144,10 +144,10 @@ export default function Contact() {
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
                   <circle cx="12" cy="10" r="3"/>
                 </svg>
-                <p className="map-placeholder-text">J-316, MIDC Bhosari<br />Pune-411026</p>
+                <p className="map-placeholder-text">A-5,Ruston Colony, Bijlinagar Road<br />Pune-411033</p>
               </div>
               <a
-                href="https://maps.google.com/?q=MIDC+Bhosari+J-316+Pune"
+                href="https://maps.app.goo.gl/Btnh88tndNczzrcF9"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="map-btn"

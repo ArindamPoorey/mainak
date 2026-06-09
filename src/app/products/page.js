@@ -35,6 +35,34 @@ function PageBanner({ title, subtitle }) {
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const products = [
   {
+  name: 'Safety Equipment',
+  desc: 'Comprehensive personal protective equipment (PPE) to ensure worker safety in hazardous industrial environments.',
+  img: 'https://cpimg.tistatic.com/02479521/b/4/Industrial-Safety-Equipement.jpg',
+  subProducts: [
+    { name: 'Body Protection', brochure: '/brochures/Saftey/bodyprotection.pdf' },
+    { name: 'Confined Space Protection', brochure: '/brochures/Saftey/confinedspaceprotection.pdf' },
+    { name: 'Ear Protection', brochure: '/brochures/Saftey/earprotection.pdf' },
+    { name: 'Electrical Protection', brochure: '/brochures/Saftey/electricalprotection.pdf' },
+    { name: 'Eyewash and Safety Shower', brochure: '/brochures/Saftey/eyewashandsafteyshower.pdf' },
+    { name: 'Face Shield', brochure: '/brochures/Saftey/facesheild.pdf' },
+    { name: 'Fire and Rescue', brochure: '/brochures/Saftey/fireandrescue.pdf' },
+    { name: 'Flameproof Cabinet', brochure: '/brochures/Saftey/flameproofcabinet.pdf' },
+    { name: 'Foot Protection', brochure: '/brochures/Saftey/footprotection.pdf' },
+    { name: 'Gas Detector', brochure: '/brochures/Saftey/gasdetector.pdf' },
+    { name: 'Hand Protection', brochure: '/brochures/Saftey/handprotection.pdf' },
+    { name: 'Head Protection', brochure: '/brochures/Saftey/headprotection.pdf' },
+    { name: 'Height Safety', brochure: '/brochures/Saftey/heightsaftey.pdf' },
+    { name: 'Lifeline System', brochure: '/brochures/Saftey/lifelinesystem.pdf' },
+    { name: 'Lockout Tagout Kit', brochure: '/brochures/Saftey/lockouttagoutkit.pdf' },
+    { name: 'Miscellaneous', brochure: '/brochures/Saftey/miscellaneous.pdf' },
+    { name: 'Respiratory Protection', brochure: '/brochures/Saftey/respiratoryprotection.pdf' },
+    { name: 'Road Safety', brochure: '/brochures/Saftey/roadsaftey.pdf' },
+    { name: 'Safety Goggles', brochure: '/brochures/Saftey/safteygoogles.pdf' },
+    { name: 'Safety Ladder', brochure: '/brochures/Saftey/safteyladder.pdf' },
+    { name: 'Spill Kit Containment', brochure: '/brochures/Saftey/spillkitcontainment.pdf' }
+  ]
+   },
+  {
     name: 'Grinding and Cutting Wheels',
     desc: 'High-performance abrasive wheels designed for fast, clean cutting and grinding of metal and masonry.',
     img: 'https://www.renwa-abrasive.com/uploads/21858/info/p202408261522436ab4e.jpg',
@@ -63,11 +91,6 @@ const products = [
     name: 'Industrial Toolings',
     desc: 'Custom precision dies, fixtures, and cutting tools manufactured for consistent mass-production machining.',
     img: 'https://inchtools.com/wp-content/uploads/2023/04/industrial-tools.webp',
-  },
-  {
-    name: 'Safety Equipment',
-    desc: 'Comprehensive personal protective equipment (PPE) to ensure worker safety in hazardous industrial environments.',
-    img: 'https://cpimg.tistatic.com/02479521/b/4/Industrial-Safety-Equipement.jpg',
   },
   {
     name: 'Material Handling Equipment',
@@ -107,26 +130,97 @@ const products = [
 ];
 
 function ProductGrid() {
+  const [activeProduct, setActiveProduct] = useState(null);
+
+  function handleProductToggle(productName) {
+    setActiveProduct(activeProduct === productName ? null : productName);
+  }
+
+  function handleSubProductAction(e, item) {
+    e.stopPropagation(); // Prevents the card from closing when clicking a link
+    if (item.url) {
+      window.open(item.url, '_blank');
+    } else if (item.brochure) {
+      window.open(item.brochure, '_blank');
+    }
+  }
+
   return (
     <section className="section-pad bg-white">
       <div className="container">
         <div className="label-row">
           <span className="accent-dash" />
-          <span className="label-text">What We Make</span>
+          <span className="label-text">What We Supply</span>
         </div>
-        <h2 className="section-heading">Products We Manufacture</h2>
+        <h2 className="section-heading">Products We Supply</h2>
         <div className="product-grid">
-          {products.map((p) => (
-            <div key={p.name} className="product-card">
-              <div className="product-img-wrap">
-                <img src={p.img} alt={p.name} className="product-img" loading="lazy" />
+          {products.map((p) => {
+            const hasSubProducts = p.subProducts && p.subProducts.length > 0;
+            const isActive = activeProduct === p.name;
+
+            return (
+              <div 
+                key={p.name} 
+                className={`product-card ${hasSubProducts ? 'has-subproducts' : ''} ${isActive ? 'product-card-active' : ''}`}
+                onClick={() => hasSubProducts && handleProductToggle(p.name)}
+              >
+                <div className="product-img-wrap">
+                  <img src={p.img} alt={p.name} className="product-img" loading="lazy" />
+                </div>
+                <div className="product-info">
+                  <h3 className="product-name">{p.name}</h3>
+                  <p className="product-desc">{p.desc}</p>
+                  
+                  {hasSubProducts && (
+                    <div className="product-toggle-btn">
+                      {isActive ? 'Hide Range ▲' : 'View Range ▼'}
+                    </div>
+                  )}
+
+                  {/* Dropdown Menu for Sub Products */}
+                  {hasSubProducts && isActive && (
+                    <div className="product-sublist" onClick={(e) => e.stopPropagation()}>
+                      {p.subProducts.map((sub) => {
+                        const isClickable = sub.url || sub.brochure;
+                        return (
+                          <div 
+                            key={sub.name} 
+                            className={`subproduct-row ${isClickable ? 'clickable' : ''}`}
+                            onClick={(e) => isClickable && handleSubProductAction(e, sub)}
+                          >
+                            <span className="subproduct-name">• {sub.name}</span>
+                            
+                            {sub.url ? (
+                              <span className="product-row-brochure mini">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                                  <polyline points="15 3 21 3 21 9"></polyline>
+                                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                                Link
+                              </span>
+                            ) : sub.brochure ? (
+                              <span className="product-row-brochure mini">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                  <polyline points="14 2 14 8 20 8"/>
+                                  <line x1="16" y1="13" x2="8" y2="13"/>
+                                  <line x1="16" y1="17" x2="8" y2="17"/>
+                                </svg>
+                                PDF
+                              </span>
+                            ) : (
+                              <span className="product-row-soon mini">Soon</span>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               </div>
-              <div className="product-info">
-                <h3 className="product-name">{p.name}</h3>
-                <p className="product-desc">{p.desc}</p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -134,25 +228,39 @@ function ProductGrid() {
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   AUTHORIZED STOCKIST BRANDS + PRODUCTS + BROCHURES
+   AUTHORIZED STOCKIST BRANDS + PRODUCTS + BROCHURES/URLS
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const brands = [
   {
-    name: 'Palymak',
-    img: './brandlogos/Palymak.png',
+    name: 'Dewalt',
+    img: './brandlogos/Dewalt.png',
     products: [
-      { name: 'Abrasive Flap Disc',     brochure: null },
-      { name: 'Abrasive Rolls',         brochure: null },
-      { name: 'Abrasive Sheets',        brochure: null },
+      { name: 'Dewalt Battries Charger',     brochure:'/brochures/assets_catalogues_dewalt_dewalt-batteries-chargers.pdf'  },
+      { name: 'Dewalt Laser instruments',         brochure: '/brochures/assets_catalogues_dewalt_dewalt-Laser-Instruments.pdf' },
+      { name: 'Dewalt Storage',        brochure: '/brochures/assets_catalogues_dewalt_dewalt-Storage.pdf' },
     ],
   },
   {
-    name: 'Cumi',
-    img: './brandlogos/Cumi.png',
+    name: 'Satnley',
+    img: '/brandlogos/Stanley.png',
     products: [
-      { name: 'Grinding Wheels',        brochure: null },
-      { name: 'Cutting Wheels',         brochure: null },
-      { name: 'Coated Abrasives',       brochure: null },
+      { name: 'Black Decker',     brochure:'/brochures/assets_catalogues_stanley_black-decker.pdf'  },
+      { name: 'Cutting Tools',         brochure: '/brochures/assets_catalogues_stanley_cutting-tools.pdf' },
+      { name: 'Fastening Tools',        brochure: '/brochures/assets_catalogues_stanley_fastening-tools.pdf' },
+      { name: 'Impact Wrenches',        brochure: '/brochures/assets_catalogues_stanley_impact-wrenches.pdf' },
+      { name: 'Insulated Tools',        brochure: '/brochures/assets_catalogues_stanley_insulated-tools.pdf' },
+      { name: 'Measuring Layout Tools',        brochure: '/brochures/assets_catalogues_stanley_measuring-layout-tools.pdf' },
+      { name: 'Optical Levels',        brochure: '/brochures/assets_catalogues_stanley_optical-levels.pdf' },
+      { name: 'Stanley Pliers',        brochure: '/brochures/assets_catalogues_stanley_pliers.pdf' },
+      { name: 'Stanley Screwdriver',        brochure: '/brochures/assets_catalogues_stanley_screwdriver-keys.pdf' },
+      { name: 'Stanley Sockets',        brochure: '/brochures/assets_catalogues_stanley_sockets.pdf' },
+      { name: 'Spanner Sets',        brochure: '/brochures/assets_catalogues_stanley_spanner-sets.pdf' },
+      { name: 'Speciality Tools',        brochure: '/brochures/assets_catalogues_stanley_speciality-tools.pdf' },
+      { name: 'Storage',        brochure: '/brochures/assets_catalogues_stanley_storage.pdf' },
+      { name: 'Striking Tools',        brochure: '/brochures/assets_catalogues_stanley_striking-tools.pdf' },
+      { name: 'Tools Sets',        brochure: '/brochures/assets_catalogues_stanley_tools-set.pdf' },
+      { name: 'Torque Wrenches',        brochure: '/brochures/assets_catalogues_stanley_torque-wrenches.pdf' },
+      { name: 'Work Holding Clamps',        brochure: '/brochures/assets_catalogues_stanley_work-holding-clamps.pdf' },
     ],
   },
   {
@@ -181,9 +289,71 @@ const brands = [
     name: 'Bosch',
     img: './brandlogos/Bosch.png',
     products: [
-      { name: 'Angle Grinder Discs',     brochure: null },
-      { name: 'Cutting Discs',           brochure: null },
-      { name: 'Diamond Blades',          brochure: null },
+      { name: 'View All Products',     url: 'https://qrco.de/beW2dK' },
+    ],
+  },
+  {
+    name: 'Taparia Tools',
+    img: './brandlogos/Taparia.png',
+    products: [
+      { name: 'Adjustable Spanners',        brochure: '/brochures/taparia_pdfs/adjustable_spanners.pdf' },
+      { name: 'Allen Keys',         brochure: '/brochures/taparia_pdfs/allen_keys.pdf' },
+      { name: 'Cantilever tool box',     brochure: '/brochures/taparia_pdfs/cantilever_tool_box.pdf' },
+      { name: 'Chisels',     brochure: '/brochures/taparia_pdfs/chisels.pdf' },
+      { name: 'Clamps',     brochure: '/brochures/taparia_pdfs/clamps.pdf' },
+      { name: 'Combination Spanners',     brochure: '/brochures/taparia_pdfs/combination_spanners.pdf' },
+      { name: 'Cut off Wheels',     brochure: '/brochures/taparia_pdfs/cut_off_wheel.pdf' },
+      { name: 'Cutters',     brochure: '/brochures/taparia_pdfs/cutters_oct2021.pdf' },
+      { name: 'Cutting Blades', brochure: '/brochures/taparia_pdfs/cutting_blades.pdf' },
+      { name: 'Gear Pullers', brochure: '/brochures/taparia_pdfs/gear_pullers.pdf' },
+      { name: 'Grease Gun', brochure: '/brochures/taparia_pdfs/grease_gun.pdf' },
+      { name: 'Hacksaw Blades', brochure: '/brochures/taparia_pdfs/hacksaw_blades.pdf' },
+      { name: 'Hammers', brochure: '/brochures/taparia_pdfs/hammers_oct2021.pdf' },
+      { name: 'Hydraulic Bottle', brochure: '/brochures/taparia_pdfs/hydraulic_bottle.pdf' },
+      { name: 'Magnetic Products', brochure: '/brochures/taparia_pdfs/magnetic_products.pdf' },
+      { name: 'Masonry Drill bits', brochure: '/brochures/taparia_pdfs/masonry_drill_bits.pdf' },
+      { name: 'Mini Pliers', brochure: '/brochures/taparia_pdfs/mini_pliers.pdf' },
+      { name: 'Non Sparking Tools', brochure: '/brochures/taparia_pdfs/non_sparking_tools.pdf' },
+      { name: 'Oil Cans', brochure: '/brochures/taparia_pdfs/oil_can.pdf' },
+      { name: 'Locking Pliers', brochure: '/brochures/taparia_pdfs/pincer_locking_pliers_oct2021.pdf' },
+      { name: 'Pipe Wrenches', brochure: '/brochures/taparia_pdfs/pipe_wrenches.pdf' },
+      { name: 'Plastic Tool box', brochure: '/brochures/taparia_pdfs/plastic_tool_box.pdf' },
+      { name: 'Pliers', brochure: '/brochures/taparia_pdfs/pliers.pdf' },
+      { name: 'Screwdriver Bits', brochure: '/brochures/taparia_pdfs/screw_driver_bits.pdf' },
+      { name: 'Screwdriver Sets', brochure: '/brochures/taparia_pdfs/screw_driver_sets.pdf' },
+      { name: 'Snap Cutter Utility Knife', brochure: '/brochures/taparia_pdfs/snap_cutter_utility_knife.pdf' },
+      { name: 'Socket Accessories', brochure: '/brochures/taparia_pdfs/sockets_socket_accesories_socket_sets.pdf' },
+      { name: 'Spanners Sets', brochure: '/brochures/taparia_pdfs/spanners_sets.pdf' },
+      { name: 'Spirit Level', brochure: '/brochures/taparia_pdfs/spirit_level.pdf' },
+      { name: 'Tools Trolley', brochure: '/brochures/taparia_pdfs/tools_trolley.pdf' },
+      { name: 'Torque Wrenches', brochure: '/brochures/taparia_pdfs/torque_wrench.pdf' },
+      { name: 'Vde Pliers', brochure: '/brochures/taparia_pdfs/vde_pliers.pdf' },
+    ],
+  },
+   {
+    name: 'Totem',
+    img: './brandlogos/Totem.png',
+    products: [
+      { name: 'View All Products',      brochure: '/brochures/totemmain.pdf' },
+      
+    ],
+  },
+  {
+    name: 'Palymak',
+    img: './brandlogos/Palymak.png',
+    products: [
+      { name: 'Abrasive Flap Disc',     brochure: null },
+      { name: 'Abrasive Rolls',         brochure: null },
+      { name: 'Abrasive Sheets',        brochure: null },
+    ],
+  },
+  {
+    name: 'Cumi',
+    img: './brandlogos/Cumi.png',
+    products: [
+      { name: 'Grinding Wheels',        brochure: null },
+      { name: 'Cutting Wheels',         brochure: null },
+      { name: 'Coated Abrasives',       brochure: null },
     ],
   },
   {
@@ -287,14 +457,6 @@ const brands = [
     ],
   },
   {
-    name: 'Totem',
-    img: './brandlogos/Totem.png',
-    products: [
-      { name: 'Carbide Drill Bits',      brochure: null },
-      { name: 'End Mills',               brochure: null },
-    ],
-  },
-  {
     name: 'TG',
     img: './brandlogos/TG.png',
     products: [
@@ -352,13 +514,11 @@ const brands = [
 function BrandStockist() {
   const [activeBrand, setActiveBrand] = useState(null);
   
-  // Create refs for scrolling behavior
   const gridRef = useRef(null);
   const dropdownRef = useRef(null);
 
   function closeDropdown() {
     setActiveBrand(null);
-    // Scroll back to the brand grid slightly after closing
     setTimeout(() => {
       gridRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 50);
@@ -369,16 +529,17 @@ function BrandStockist() {
       closeDropdown();
     } else {
       setActiveBrand(brandName);
-      // Wait a moment for the dropdown element to mount in the DOM
       setTimeout(() => {
         dropdownRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 50);
     }
   }
 
-  function openBrochure(brochure) {
-    if (brochure) {
-      window.open(brochure, '_blank');
+  function handleProductAction(product) {
+    if (product.url) {
+      window.open(product.url, '_blank');
+    } else if (product.brochure) {
+      window.open(product.brochure, '_blank');
     }
   }
 
@@ -393,10 +554,9 @@ function BrandStockist() {
         </div>
         <h2 className="section-heading">Official Brands We Stock</h2>
         <p className="stock-sub">
-          Click any brand to explore its product range. Click a product to view its brochure.
+          Click any brand to explore its product range. Click a product to view its brochure or website link.
         </p>
 
-        {/* Brand logo grid with ref attached */}
         <div className="brand-grid" ref={gridRef}>
           {brands.map((b) => (
             <button
@@ -418,7 +578,6 @@ function BrandStockist() {
           ))}
         </div>
 
-        {/* Dropdown panel — shown below grid when a brand is active */}
         {activeBrandData && (
           <div className="brand-dropdown" ref={dropdownRef}>
             <div className="brand-dropdown-header">
@@ -443,34 +602,48 @@ function BrandStockist() {
             </div>
 
             <div className="dropdown-products">
-              {activeBrandData.products.map((p) => (
-                <div
-                  key={p.name}
-                  className={`dropdown-product-row${p.brochure ? ' has-brochure' : ''}`}
-                  onClick={() => openBrochure(p.brochure)}
-                  role={p.brochure ? 'button' : 'listitem'}
-                  tabIndex={p.brochure ? 0 : -1}
-                  onKeyDown={(e) => e.key === 'Enter' && openBrochure(p.brochure)}
-                >
-                  <div className="product-row-left">
-                    <span className="product-row-dot" />
-                    <span className="product-row-name">{p.name}</span>
+              {activeBrandData.products.map((p) => {
+                const isClickable = p.brochure || p.url;
+                
+                return (
+                  <div
+                    key={p.name}
+                    className={`dropdown-product-row${isClickable ? ' has-brochure' : ''}`}
+                    onClick={() => handleProductAction(p)}
+                    role={isClickable ? 'button' : 'listitem'}
+                    tabIndex={isClickable ? 0 : -1}
+                    onKeyDown={(e) => e.key === 'Enter' && handleProductAction(p)}
+                  >
+                    <div className="product-row-left">
+                      <span className="product-row-dot" />
+                      <span className="product-row-name">{p.name}</span>
+                    </div>
+                    
+                    {p.url ? (
+                      <span className="product-row-brochure">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        View Link
+                      </span>
+                    ) : p.brochure ? (
+                      <span className="product-row-brochure">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                          <polyline points="14 2 14 8 20 8"/>
+                          <line x1="16" y1="13" x2="8" y2="13"/>
+                          <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                        View Brochure
+                      </span>
+                    ) : (
+                      <span className="product-row-soon">Coming Soon</span>
+                    )}
                   </div>
-                  {p.brochure ? (
-                    <span className="product-row-brochure">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-                        <polyline points="14 2 14 8 20 8"/>
-                        <line x1="16" y1="13" x2="8" y2="13"/>
-                        <line x1="16" y1="17" x2="8" y2="17"/>
-                      </svg>
-                      View Brochure
-                    </span>
-                  ) : (
-                    <span className="product-row-soon">Coming Soon</span>
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
@@ -537,6 +710,38 @@ const styles = `
   .product-name { font-family: var(--font-heading); font-size: 16px; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; }
   .product-desc { font-size: 13px; line-height: 1.6; color: var(--text-mid); }
 
+  /* UPDATED: Product Grid Dropdown Styles */
+  .product-card.has-subproducts { cursor: pointer; }
+  .product-card.product-card-active {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 2px var(--orange);
+  }
+  .product-toggle-btn {
+    margin-top: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--orange);
+  }
+  .product-sublist {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    animation: dropIn 0.2s ease;
+  }
+  .subproduct-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .subproduct-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .subproduct-row.clickable { cursor: pointer; }
+  .subproduct-row.clickable:hover .subproduct-name { color: var(--orange); }
+  .subproduct-name { font-size: 13px; font-weight: 500; color: var(--text-dark); transition: color 0.15s ease; }
+
   /* Brand grid */
   .brand-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; scroll-margin-top: 100px; }
 
@@ -565,19 +770,13 @@ const styles = `
     background: #fff7f0;
     box-shadow: 0 0 0 2px var(--orange);
   }
+  
   .brand-logo-img {
     max-width: 100%;
     max-height: 48px;
     object-fit: contain;
-    filter: grayscale(100%);
-    opacity: 0.7;
-    transition: filter 0.2s ease, opacity 0.2s ease;
   }
-  .brand-slot:hover .brand-logo-img,
-  .brand-slot-active .brand-logo-img {
-    filter: grayscale(0%);
-    opacity: 1;
-  }
+  
   .brand-chevron {
     font-size: 8px;
     color: var(--text-faint);
@@ -677,7 +876,13 @@ const styles = `
     border-radius: 99px;
     transition: background 0.15s ease, color 0.15s ease;
   }
-  .dropdown-product-row.has-brochure:hover .product-row-brochure {
+  .product-row-brochure.mini {
+    font-size: 10px;
+    padding: 2px 8px;
+    gap: 4px;
+  }
+  .dropdown-product-row.has-brochure:hover .product-row-brochure,
+  .subproduct-row.clickable:hover .product-row-brochure {
     background: var(--orange);
     color: #fff;
   }
@@ -687,6 +892,10 @@ const styles = `
     padding: 4px 10px;
     border: 1px solid var(--border);
     border-radius: 99px;
+  }
+  .product-row-soon.mini {
+    font-size: 9px;
+    padding: 2px 8px;
   }
 
   /* CTA */
@@ -719,3 +928,4 @@ const styles = `
   }
   @media (max-width: 400px) { .product-grid { grid-template-columns: 1fr; } }
 `;
+// Arindam Poorey

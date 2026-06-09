@@ -158,9 +158,7 @@ const styles = `
     max-height: 64px;
     max-width: 140px;
     object-fit: contain;
-    filter: grayscale(100%);
-    opacity: 0.7;
-    transition: filter 0.2s ease, opacity 0.2s ease;
+    
   }
   .client-card:hover .client-logo-img {
     filter: grayscale(0%);

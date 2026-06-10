@@ -111,8 +111,11 @@ function ServicesGrid() {
                 />
               </div>
               <div className="service-body">
-                <div className="service-icon">{s.icon}</div>
-                <h3 className="service-name">{s.name}</h3>
+                {/* ── ADDED FLEX CONTAINER FOR ICON AND TITLE ── */}
+                <div className="service-header">
+                  <div className="service-icon">{s.icon}</div>
+                  <h3 className="service-name">{s.name}</h3>
+                </div>
                 <p className="service-desc">{s.desc}</p>
               </div>
             </div>
@@ -214,11 +217,18 @@ const styles = `
     transition: transform 0.4s ease;
   }
   .service-card:hover .service-img { transform: scale(1.04); }
+  
   .service-body {
     padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+  }
+  /* ── ADDED CSS FOR HORIZONTAL ICON & NAME ── */
+  .service-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
   .service-icon {
     width: 40px;
@@ -236,6 +246,7 @@ const styles = `
     font-size: 17px;
     font-weight: 600;
     color: var(--text-dark);
+    margin: 0; /* Reset margins to ensure proper alignment */
   }
   .service-desc {
     font-size: 13px;

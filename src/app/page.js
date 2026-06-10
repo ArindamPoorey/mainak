@@ -43,7 +43,7 @@ function Hero() {
         </div>
         <div className="hero-image-wrapper">
           <img
-            src="https://www.enggpro.com/blogs/wp-content/uploads/2019/12/view-of-factory-against-blue-sky-257700.jpg"
+            src="https://images.squarespace-cdn.com/content/v1/6435767e98f48d5f4978208e/39e82c57-f147-49d3-893f-0c8819136b9d/STRATOS+SERIES+CNC+Machine.JPG"
             alt="Heavy Precision CNC Machining"
             className="hero-img"
           />
@@ -53,15 +53,6 @@ function Hero() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   TRUSTED BY — AUTO-SCROLLING LOGO CAROUSEL
-   To add a client logo:
-   1. Add a new object to the `clientLogos` array below
-   2. Set `name` to the company name (used as alt text)
-   3. Set `logo` to the image path e.g. '/clients/nrb.png'
-      → Place logo files in: public/clients/
-   4. The list is duplicated automatically for infinite scroll
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const clientLogos = [
   { name: 'Mahindra',                logo: './brandlogos/mahindra.png'},
   { name: 'NRB Bearings',            logo: './brandlogos/nrb.png'     },
@@ -78,9 +69,6 @@ const clientLogos = [
   { name: 'MTek',                    logo: './brandlogos/mtek.png'},
   { name: 'Kala Genset',             logo: './brandlogos/kala.png'},
   { name: 'Belrise',                 logo: './brandlogos/belsrise.png'},
-  /* ── ADD MORE CLIENT LOGOS BELOW THIS LINE ──
-  { name: 'Company Name', logo: '/clients/filename.png' },
-  */
 ];
 
 function TrustedBy() {
@@ -95,11 +83,10 @@ function TrustedBy() {
 
     let animationId;
     let position = 0;
-    const speed = 0.5; // px per frame — increase for faster scroll
+    const speed = 0.5;
 
     function animate() {
       position -= speed;
-      // Reset when first half has scrolled fully out
       const halfWidth = track.scrollWidth / 2;
       if (Math.abs(position) >= halfWidth) {
         position = 0;
@@ -110,7 +97,6 @@ function TrustedBy() {
 
     animationId = requestAnimationFrame(animate);
 
-    // Pause on hover
     track.addEventListener('mouseenter', () => cancelAnimationFrame(animationId));
     track.addEventListener('mouseleave', () => { animationId = requestAnimationFrame(animate); });
 
@@ -219,13 +205,6 @@ function AKAdvantage() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   INDUSTRIES WE SERVE
-   To change an industry image:
-   Set `img` to any Unsplash URL or your own image path.
-   To add a new industry card:
-   Add a new object to the `industries` array below.
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const industries = [
   {
     label: 'Automotive',
@@ -236,12 +215,12 @@ const industries = [
     img: 'https://defence.in/attachments/indian-defence-industry-webp.3853/',
   },
   {
-    label: 'Aerospace',
-    img: 'https://images.unsplash.com/photo-1517976487492-5750f3195933?w=600&q=80&fit=crop',
+    label: 'Power Plants',
+    img: 'https://www.electricchoice.com/blog/power-plants-in-the-us/power-plants-in-the-us-featured.webp',
   },
   {
     label: 'Pharma',
-    img: 'https://thalassaemia.org.cy/wp-content/uploads/2019/05/pharma.jpg',
+    img: 'https://www.supplychainbrain.com/ext/resources/2023/05/15/PHARMACEUTICAL-PILLS-CAPSULES-DRUGS-MEDICINE-iStock-SweetBunFactory-1465073112.webp?t=1778091481&width=1080 ',
   },
   {
     label: 'Heavy Engineering',
@@ -251,24 +230,54 @@ const industries = [
     label: 'Automation',
     img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMI9cjVYmkWj6LL2FTPK3gfESs9-Ko45uplw&s',
   },
-  /* ── ADD MORE INDUSTRIES BELOW THIS LINE ──
-  {
-    label: 'Industry Name',
-    img: 'https://your-image-url.com/image.jpg',
-  },
-  */
 ];
 
 function Industries() {
+  const scrollRef = useRef(null);
+  
+  // Duplicate the array to create a seamless infinite scrolling effect
+  const loopingIndustries = [...industries, ...industries];
+
+  useEffect(() => {
+    const track = scrollRef.current;
+    if (!track) return;
+
+    let animationId;
+    let position = 0;
+    const speed = 0.8; // Adjust speed (higher is faster)
+
+    function animate() {
+      position -= speed;
+      const halfWidth = track.scrollWidth / 2;
+      if (Math.abs(position) >= halfWidth) {
+        position = 0;
+      }
+      track.style.transform = `translateX(${position}px)`;
+      animationId = requestAnimationFrame(animate);
+    }
+
+    animationId = requestAnimationFrame(animate);
+
+    // Pause the carousel when the user hovers over the images
+    track.addEventListener('mouseenter', () => cancelAnimationFrame(animationId));
+    track.addEventListener('mouseleave', () => { animationId = requestAnimationFrame(animate); });
+
+    return () => cancelAnimationFrame(animationId);
+  }, []);
+
   return (
     <section className="section-pad bg-dim">
       <div className="container">
         <div className="section-header-center">
           <h2 className="section-heading">Industries We Serve</h2>
         </div>
-        <div className="industries-grid">
-          {industries.map((item) => (
-            <div key={item.label} className="industry-card">
+      </div>
+      
+      {/* Full-width auto-scrolling container */}
+      <div className="industries-carousel-outer">
+        <div className="industries-carousel-track" ref={scrollRef}>
+          {loopingIndustries.map((item, index) => (
+            <div key={`${item.label}-${index}`} className="industry-card carousel-card">
               <div className="industry-img-wrap">
                 <img src={item.img} alt={item.label} className="industry-img" loading="lazy" />
                 <div className="industry-overlay" />
@@ -283,26 +292,22 @@ function Industries() {
 }
 
 function OurJourney() {
-  const events = [
-    { year: '2018', desc: 'Founded in MIDC Bhosari' },
-    { year: '2020', desc: 'Expanded CNC Capabilities' },
-    { year: '2022', desc: 'ISO Certification Achieved' },
-    { year: '2024', desc: 'Facility Expansion' },
-  ];
   return (
     <section className="section-pad bg-white">
       <div className="container">
         <div className="section-header-center">
-          <h2 className="section-heading">Our Journey</h2>
+          <h2 className="section-heading"></h2>
         </div>
-        <div className="journey-grid">
-          {events.map((e) => (
-            <div key={e.year} className="journey-card hover-lift">
-              <p className="journey-year">{e.year}</p>
-              <p className="journey-desc">{e.desc}</p>
-            </div>
-          ))}
+        
+        {/* Replaced text grid with a single static image */}
+        <div className="journey-img-container">
+          <img 
+            src="/genimages/ourjourny.png" 
+            alt="Our Journey Timeline" 
+            className="journey-img"
+          />
         </div>
+
       </div>
     </section>
   );
@@ -353,7 +358,7 @@ const homeStyles = `
   .hero-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
   .hero-image-wrapper:hover .hero-img { transform: scale(1.03); }
 
-  /* ── Carousel ── */
+  /* ── Logo Carousel ── */
   .trusted { background: var(--surface); padding: 40px 0 36px; border-bottom: 1px solid var(--border); overflow: hidden; }
   .trusted-label { text-align: center; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; color: var(--text-faint); margin-bottom: 28px; }
   .carousel-outer {
@@ -383,7 +388,6 @@ const homeStyles = `
     max-height: 70px;
     max-width: 120px;
     object-fit: contain;
-    
     transition: filter 0.2s ease, opacity 0.2s ease;
   }
   .carousel-item:hover .carousel-logo { filter: grayscale(0%); opacity: 1; }
@@ -420,8 +424,19 @@ const homeStyles = `
   .stat-label { font-size: 11px; font-weight: 700; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
   .stat-desc { font-size: 14px; line-height: 1.6; color: var(--text-mid); max-width: 220px; }
 
-  /* ── Industries with images ── */
-  .industries-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  /* ── Auto-Scrolling Industries Carousel ── */
+  .industries-carousel-outer {
+    overflow: hidden;
+    width: 100%;
+    padding: 10px 0;
+  }
+  .industries-carousel-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    will-change: transform;
+    padding-left: 24px; 
+  }
   .industry-card {
     border-radius: var(--radius-card);
     overflow: hidden;
@@ -429,6 +444,10 @@ const homeStyles = `
     cursor: default;
     border: 1px solid var(--border);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .carousel-card {
+    width: 320px; 
+    flex-shrink: 0;
   }
   .industry-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
   .industry-img-wrap {
@@ -462,15 +481,24 @@ const homeStyles = `
     color: #fff;
     letter-spacing: 0.01em;
     text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-    /* label is inside the card, position it over the image */
     padding: 0 12px;
   }
 
-  /* Journey */
-  .journey-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .journey-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 32px 24px; text-align: center; }
-  .journey-year { font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--orange); margin-bottom: 10px; }
-  .journey-desc { font-size: 14px; font-weight: 500; color: var(--text-dark); line-height: 1.5; }
+  /* ── Our Journey Static Image ── */
+  .journey-img-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-radius: var(--radius-card, 12px);
+    overflow: hidden;
+  }
+  .journey-img {
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
 
   /* CTA */
   .cta-banner {
@@ -485,11 +513,6 @@ const homeStyles = `
   .cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
 
   /* ── Responsive ── */
-  @media (max-width: 1024px) {
-    .industries-grid { grid-template-columns: repeat(3, 1fr); }
-    .journey-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
   @media (max-width: 768px) {
     .hero-inner { grid-template-columns: 1fr; gap: 32px; text-align: center; }
     .hero-content { order: 1; }
@@ -502,9 +525,8 @@ const homeStyles = `
     .two-col-cards { grid-template-columns: 1fr; }
     .stats-row { grid-template-columns: 1fr; gap: 32px; }
     .stat-border { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 32px; }
-    .industries-grid { grid-template-columns: repeat(2, 1fr); }
-    .journey-grid { grid-template-columns: 1fr; }
     .carousel-item { padding: 0 24px; }
+    .carousel-card { width: 260px; } /* Slightly smaller cards on mobile */
   }
 
   @media (max-width: 480px) {
@@ -515,6 +537,5 @@ const homeStyles = `
     .btn-primary, .btn-outline-white { width: 100%; padding: 14px 18px; }
     .hero-image-wrapper { max-height: 220px; }
     .hero-img { height: 220px; }
-    .industries-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   }
 `;

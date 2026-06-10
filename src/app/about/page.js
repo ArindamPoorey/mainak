@@ -38,9 +38,9 @@ export default function About() {
       <main>
         <HeroBanner />
         <WhoWeAre />
+        <InspectionFacility />
         <CorePrinciples />
         <AboutTimeline />
-        <InspectionFacility />
         <AboutCTA />
       </main>
       
@@ -75,7 +75,6 @@ function WhoWeAre() {
     <section className="section-pad bg-white">
       <div className="container who-inner">
         <div className="who-text reveal fade-right">
-          <div className="tag-chip">Company Profile</div>
           <h2 className="who-heading">Engineered for Complex Manufacturing Challenges.</h2>
           <p className="who-body">
             A K Enterprises specialises in the design and manufacture of high-precision
@@ -105,10 +104,43 @@ function WhoWeAre() {
         </div>
         <div className="who-img-wrap reveal fade-left">
           <img
-            src="https://images.unsplash.com/photo-1485083269755-a7b559a4fe5e?q=80&w=1169&auto=format&fit=crop"
+            src="https://www.ey.com/content/dam/ey-unified-site/ey-com/en-gl/insights/consulting/images/ey-industrial-robots-in-a-car-factory.jpg"
             alt="CNC Machining at A K Enterprises"
             className="who-img"
           />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Inspection Facility ── */
+function InspectionFacility() {
+  const instruments = [
+    'Baker Digital Height Gauge — 0 to 300mm',
+    'Mitutoyo Digital Height Gauge — 0 to 600mm',
+    'Luthra Surface Plate — 900mm x 600mm',
+    'Mitutoyo Plunger Dial Gauges (0.001mm precision)',
+    'Baker Plunger & Lever Dial Gauges',
+    'Micrometers — Baker Make (0–125mm range)',
+    'Air Gauge Unit',
+    'Bore Dial Gauges & Vernier Calipers',
+  ];
+  return (
+    <section className="section-pad bg-dim">
+      <div className="container">
+        <div className="label-row reveal fade-up">
+          <span className="accent-dash" />
+          <span className="label-text">Quality Assurance</span>
+        </div>
+        <h2 className="section-heading reveal fade-up">Inspection Facility</h2>
+        <div className="instruments-grid">
+          {instruments.map((item, i) => (
+            <div key={item} className={`instrument-item reveal fade-up delay-${(i % 4) + 1}`}>
+              <div className="instrument-dot" />
+              <p className="instrument-text">{item}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -195,39 +227,6 @@ function AboutTimeline() {
               <div className="at-desc-col">
                 <p className="at-desc">{e.desc}</p>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ── Inspection Facility ── */
-function InspectionFacility() {
-  const instruments = [
-    'Baker Digital Height Gauge — 0 to 300mm',
-    'Mitutoyo Digital Height Gauge — 0 to 600mm',
-    'Luthra Surface Plate — 900mm x 600mm',
-    'Mitutoyo Plunger Dial Gauges (0.001mm precision)',
-    'Baker Plunger & Lever Dial Gauges',
-    'Micrometers — Baker Make (0–125mm range)',
-    'Air Gauge Unit',
-    'Bore Dial Gauges & Vernier Calipers',
-  ];
-  return (
-    <section className="section-pad bg-dim">
-      <div className="container">
-        <div className="label-row reveal fade-up">
-          <span className="accent-dash" />
-          <span className="label-text">Quality Assurance</span>
-        </div>
-        <h2 className="section-heading reveal fade-up">Inspection Facility</h2>
-        <div className="instruments-grid">
-          {instruments.map((item, i) => (
-            <div key={item} className={`instrument-item reveal fade-up delay-${(i % 4) + 1}`}>
-              <div className="instrument-dot" />
-              <p className="instrument-text">{item}</p>
             </div>
           ))}
         </div>
@@ -405,6 +404,35 @@ const styles = `
     transform: scale(1.05);
   }
 
+  /* ── Inspection ── */
+  .instruments-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .instrument-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.3s ease;
+  }
+  .instrument-item:hover { 
+    border-color: var(--orange); 
+    transform: translateX(6px) translateY(-2px); 
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .instrument-dot { 
+    width: 8px; height: 8px; 
+    border-radius: 50%; 
+    background: var(--orange); 
+    flex-shrink: 0; 
+    transition: transform 0.3s ease;
+  }
+  .instrument-item:hover .instrument-dot {
+    transform: scale(1.5);
+  }
+  .instrument-text { font-size: 14px; color: var(--text-mid); line-height: 1.4; }
+
   /* ── Core Principles ── */
   .section-heading-center {
     font-family: var(--font-heading);
@@ -511,35 +539,6 @@ const styles = `
   .at-item:last-child .at-line { display: none; }
   .at-desc-col { padding: 8px 0 40px 20px; }
   .at-desc { font-size: 15px; line-height: 1.65; color: var(--text-mid); }
-
-  /* ── Inspection ── */
-  .instruments-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .instrument-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    transition: all 0.3s ease;
-  }
-  .instrument-item:hover { 
-    border-color: var(--orange); 
-    transform: translateX(6px) translateY(-2px); 
-    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-  }
-  .instrument-dot { 
-    width: 8px; height: 8px; 
-    border-radius: 50%; 
-    background: var(--orange); 
-    flex-shrink: 0; 
-    transition: transform 0.3s ease;
-  }
-  .instrument-item:hover .instrument-dot {
-    transform: scale(1.5);
-  }
-  .instrument-text { font-size: 14px; color: var(--text-mid); line-height: 1.4; }
 
   /* ── CTA ── */
   .cta-banner {

@@ -380,7 +380,7 @@ const homeStyles = `
     flex-shrink: 0;
   }
   .carousel-logo {
-    max-height: 36px;
+    max-height: 70px;
     max-width: 120px;
     object-fit: contain;
     

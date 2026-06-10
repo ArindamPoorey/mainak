@@ -63,14 +63,15 @@ function Hero() {
    4. The list is duplicated automatically for infinite scroll
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const clientLogos = [
+  { name: 'Mahindra',                logo: './brandlogos/mahindra.png'},
   { name: 'NRB Bearings',            logo: './brandlogos/nrb.png'     },
   { name: 'Dana',                    logo: './brandlogos/dana.png'},
   { name: 'Blue Ocean Global',       logo: './brandlogos/bog.png'},
   { name: 'Oerlikon Balzers',        logo: './brandlogos/blazers.png' },
   { name: 'Shree Ganesh Engg Works', logo: './brandlogos/shree.png'   },
-  { name: 'Exide',                   logo: './brandlogos/exide.png'                    },
-  { name: 'Lupin',                   logo: './brandlogos/lupin.png'                        },
-  { name: 'Mj Biopharm',             logo: './brandlogos/mj.png'                      },
+  { name: 'Exide',                   logo: './brandlogos/exide.png'},
+  { name: 'Lupin',                   logo: './brandlogos/lupin.png'},
+  { name: 'Mj Biopharm',             logo: './brandlogos/mj.png'},
   { name: 'Fischer Measurements',    logo: './brandlogos/fishler.png'  },
   { name: 'Thermax',                 logo: './brandlogos/Thermax.png'},
   { name: 'Gujarat Nippon',          logo: './brandlogos/gujarat.png'},
@@ -239,8 +240,8 @@ const industries = [
     img: 'https://images.unsplash.com/photo-1517976487492-5750f3195933?w=600&q=80&fit=crop',
   },
   {
-    label: 'Industrial Equipment',
-    img: 'https://5.imimg.com/data5/SELLER/Default/2023/5/310471118/TP/RK/VU/25696002/industrial-machinery.png',
+    label: 'Pharma',
+    img: 'https://thalassaemia.org.cy/wp-content/uploads/2019/05/pharma.jpg',
   },
   {
     label: 'Heavy Engineering',

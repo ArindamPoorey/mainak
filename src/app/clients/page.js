@@ -39,15 +39,16 @@ function PageBanner({ title, subtitle }) {
    To remove a client: delete its object from the array
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const clients = [
-  { name: 'NRB Bearings',            logo: './brandlogos/nrb.png'     },
+  { name: 'NRB Bearings',            logo: './brandlogos/nrb.png'},
+  { name: 'Mahindra',                logo: './brandlogos/mahindra.png'},
   { name: 'Dana',                    logo: './brandlogos/dana.png'},
   { name: 'Blue Ocean Global',       logo: './brandlogos/bog.png'},
-  { name: 'Oerlikon Balzers',        logo: './brandlogos/blazers.png' },
-  { name: 'Shree Ganesh Engg Works', logo: './brandlogos/shree.png'   },
-  { name: 'Exide',                   logo: './brandlogos/exide.png'                    },
-  { name: 'Lupin',                   logo: './brandlogos/lupin.png'                        },
-  { name: 'Mj Biopharm',             logo: './brandlogos/mj.png'                      },
-  { name: 'Fischer Measurements',    logo: './brandlogos/fishler.png'  },
+  { name: 'Oerlikon Balzers',        logo: './brandlogos/blazers.png'},
+  { name: 'Shree Ganesh Engg Works', logo: './brandlogos/shree.png'},
+  { name: 'Exide',                   logo: './brandlogos/exide.png'},
+  { name: 'Lupin',                   logo: './brandlogos/lupin.png'},
+  { name: 'Mj Biopharm',             logo: './brandlogos/mj.png'},
+  { name: 'Fischer Measurements',    logo: './brandlogos/fishler.png'},
   { name: 'Thermax',                 logo: './brandlogos/Thermax.png'},
   { name: 'Gujarat Nippon',          logo: './brandlogos/gujarat.png'},
   { name: 'MTek',                    logo: './brandlogos/mtek.png'},

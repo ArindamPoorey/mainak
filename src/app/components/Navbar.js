@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image'; // 1. Import the Image component
 import { usePathname } from 'next/navigation';
 
 const navLinks = [
@@ -33,11 +34,15 @@ export default function Navbar() {
         <div className="container nav-inner">
 
           <Link href="/" className="nav-logo">
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
-              <rect width="34" height="34" rx="7" fill="#0B1F3A" />
-              <text x="50%" y="54%" dominantBaseline="middle" textAnchor="middle" fill="#F97316" fontSize="13" fontWeight="700" fontFamily="Space Grotesk, sans-serif">AK</text>
-            </svg>
-            <span className="nav-logo-text">A K Enterprises</span>
+            {/* 2. Replaced the SVG with your brand logo */}
+            <Image 
+              src="/brandlogos/navbarlogo.png" /* Place logo.png in your 'public' folder */
+              alt="A K Enterprises Logo" 
+              width={180} 
+              height={180} 
+              className="brand-image"
+              priority /* Loads the logo immediately */
+            />
           </Link>
 
           <nav className="nav-links">
@@ -88,6 +93,12 @@ export default function Navbar() {
       <div style={{ height: '64px' }} />
 
       <style>{`
+        /* ... Keep all your existing CSS ... */
+        .brand-image {
+          object-fit: contain;
+          border-radius: 4px; /* Optional: adjust based on your logo shape */
+        }
+        /* ... existing CSS below ... */
         .nav-header {
           position: fixed;
           top: 0; left: 0; right: 0;
